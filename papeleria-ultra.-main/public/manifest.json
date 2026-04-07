@@ -1,0 +1,8 @@
+{
+  "name": "Libca Diseños",
+  "short_name": "Libca",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffe4ec",
+  "theme_color": "#9b5de5"
+}

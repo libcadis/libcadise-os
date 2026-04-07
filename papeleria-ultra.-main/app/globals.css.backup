@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --rosa: #ffe4ec;
+  --lila: #9b5de5;
+  --negro: #222;
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.18);
+}
+
+/* Optimizaciones de rendimiento */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #ffe4ec 0%, #ffffff 50%, #f3e8ff 100%);
+  min-height: 100vh;
+  color: var(--negro);
+  line-height: 1.6;
+  /* Optimización: reducir repaints */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism effect - optimizado */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  /* Optimización: usar transform3d para GPU */
+  transform: translateZ(0);
+}
+
+/* Animaciones optimizadas - solo cuando es necesario */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sticker-peel {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-2deg) scale(1.02); }
+  50% { transform: rotate(0deg) scale(1.05); }
+  75% { transform: rotate(2deg) scale(1.02); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+/* Usar will-change para optimizar animaciones */
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.animate-sticker-peel {
+  animation: sticker-peel 1.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Reducir movimiento para mejor rendimiento en móviles */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-sticker-peel {
+    animation: none;
+  }
+}
+
+/* Botones */
+.btn-primary {
+  @apply bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl;
+}
+
+.btn-secondary {
+  @apply border-2 border-purple-500 text-purple-500 px-6 py-3 rounded-full font-semibold hover:bg-purple-500 hover:text-white transition-all duration-300;
+}
+
+/* Utilidades adicionales */
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent;
+}
+
+/* PROMOS */
+.promos {
+  padding: 20px;
+}
+
+.promo-card {
+  background: var(--rosa);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--rosa);
+  text-align: center;
+  padding: 20px;
+}
+
+/* EDITOR */
+.editor-box {
+  width: 260px;
+  height: 260px;
+  background: var(--rosa);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Product carousel */
+.product-carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.product-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.product-slide {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+}
+
+/* Custom utilities */
+.product-card {
+  @apply bg-white/70 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300;
+}
+
+.sticker-preview {
+  @apply bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl p-4 shadow-inner;
+}
