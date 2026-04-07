@@ -1,9 +1,25 @@
 import { useHomepageSections } from '../hooks/useHomepageSections'
 import { HOMEPAGE_SECTION_KEYS } from '../lib/homepageContent'
 
+type ReviewItem = {
+  nombre: string
+  texto: string
+  contexto: string
+}
+
+type ReviewSection = {
+  title: string
+  subtitle: string
+  items: ReviewItem[]
+}
+
 export default function ReviewsSection() {
   const { sections } = useHomepageSections()
-  const reviewsSection = sections[HOMEPAGE_SECTION_KEYS.reviews]
+  const reviewsSection = (
+    sections as Record<string, ReviewSection>
+  )[HOMEPAGE_SECTION_KEYS.reviews]
+
+  if (!reviewsSection) return null
 
   return (
     <section className="py-20">

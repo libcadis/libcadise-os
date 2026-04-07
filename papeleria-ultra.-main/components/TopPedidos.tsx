@@ -1,9 +1,26 @@
 import { useHomepageSections } from '../hooks/useHomepageSections'
 import { HOMEPAGE_SECTION_KEYS } from '../lib/homepageContent'
 
+type TopPedidoItem = {
+  icon: string
+  titulo: string
+  descripcion: string
+  detalle: string
+}
+
+type TopPedidosSection = {
+  title: string
+  subtitle: string
+  items: TopPedidoItem[]
+}
+
 export default function TopPedidos() {
   const { sections } = useHomepageSections()
-  const topPedidosSection = sections[HOMEPAGE_SECTION_KEYS.topPedidos]
+  const topPedidosSection = (
+    sections as Record<string, TopPedidosSection>
+  )[HOMEPAGE_SECTION_KEYS.topPedidos]
+
+  if (!topPedidosSection) return null
 
   return (
     <section className="py-20">
